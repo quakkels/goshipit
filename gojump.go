@@ -6,14 +6,20 @@ import (
 )
 
 func main() {
-	gomol.AddLogger(gomol.NewConsoleLogger())
-	gomol.InitLoggers()
+	startUp()
 	defer cleanUp()
-	gomol.Info("Initialized console logger")
 
 	config.Test()
+	config.Test2()
 }
 
+func startUp() {
+	loggerConfig := gomol.NewConsoleLoggerConfig()
+	consoleLogger, _ := gomol.NewConsoleLogger(loggerConfig)
+	gomol.AddLogger(consoleLogger)
+	gomol.InitLoggers()
+	gomol.Info("Initialized console logger")
+}
 func cleanUp() {
 	gomol.Info("Shutting down loggers")
 	gomol.ShutdownLoggers()

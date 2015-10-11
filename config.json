@@ -1,5 +1,14 @@
 [
-    { "starwars" : "$HOME/pictures/shipit/01.png" },
-    { "nautical" : "$HOME/pictures/shipit/01.png" },
-    { "costumes" : "$HOME/pictures/shipit/01.png" }
+    { 
+        "Category" : "starwars",
+        "Path" : "pictures/shipit/01.png" 
+    },
+    { 
+        "Category" : "nautical",
+        "Path" : "pictures/shipit/02.png" 
+    },
+    { 
+        "Category" : "costumes",
+        "Path" : "pictures/shipit/03.png" 
+    }
 ]
