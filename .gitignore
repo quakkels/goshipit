@@ -12,6 +12,7 @@ gojump
 # Folders
 _obj
 _test
+imgs
 
 # Architecture specific extensions/prefixes
 *.[568vq]
