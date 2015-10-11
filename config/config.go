@@ -11,36 +11,17 @@ type Configuration struct {
 	Path     string
 }
 
-func newConfiguration() Configuration {
-	c := Configuration{
-		Category: "category",
-		Path:     "/path/to/somewhere",
-	}
-	return c
-}
+var Configs []Configuration
 
-func Test() {
-	gomol.Info("Testing file io")
+func Load() {
 	configFile, err := ioutil.ReadFile("config.json")
-
 	if err != nil {
 		gomol.Err(err.Error())
 		panic(err)
 	}
 
-	gomol.Info(string(configFile))
-}
-
-func Test2() {
-	gomol.Info("Testing string parsing to json")
-	config := []byte(`{"Category":"category","Path":"/path"}`)
-	var data Configuration
-
-	if err := json.Unmarshal(config, &data); err != nil {
+	if err := json.Unmarshal(configFile, &Configs); err != nil {
 		gomol.Err(err.Error())
 		panic(err)
-	} else {
-		gomol.Info("Got the config from the []byte.")
-		gomol.Infof("here's: ", data)
 	}
 }

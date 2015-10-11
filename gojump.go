@@ -9,8 +9,8 @@ func main() {
 	startUp()
 	defer cleanUp()
 
-	config.Test()
-	config.Test2()
+	config.Load()
+	gomol.Infof("Configs: %v", config.Configs)
 }
 
 func startUp() {
