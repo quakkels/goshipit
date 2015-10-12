@@ -16,7 +16,7 @@ var Configs []Configuration
 func Load() {
 	configFile, err := ioutil.ReadFile("config.json")
 	if err != nil {
-		gomol.Err(err.Error())
+		gomol.Fatal(err.Error())
 		panic(err)
 	}
 
