@@ -25,3 +25,9 @@ func Load() {
 		panic(err)
 	}
 }
+
+func GetImgFromCategory(category string) string {
+	imgs := make([]string, 0)
+	imgs = append(imgs, "append")
+	return imgs[0]
+}
