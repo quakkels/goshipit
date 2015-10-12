@@ -21,7 +21,7 @@ func Load() {
 	}
 
 	if err := json.Unmarshal(configFile, &Configs); err != nil {
-		gomol.Err(err.Error())
+		gomol.Fatal(err.Error())
 		panic(err)
 	}
 }
