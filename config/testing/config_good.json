@@ -1,14 +1,14 @@
 [
     { 
-        "Category" : "starwars",
-        "Path" : "pictures/shipit/01.png" 
+        "category" : "starwars",
+        "path" : "pictures/shipit/01.png" 
     },
     { 
-        "Category" : "nautical",
-        "Path" : "pictures/shipit/02.png" 
+        "category" : "nautical",
+        "path" : "pictures/shipit/02.png" 
     },
     { 
-        "Category" : "costumes",
-        "Path" : "pictures/shipit/03.png" 
+        "category" : "testcat",
+        "path" : "testcatpath" 
     }
 ]

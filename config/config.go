@@ -6,24 +6,38 @@ import (
 	"io/ioutil"
 )
 
-type Configuration struct {
-	Category string
-	Path     string
+type ImageOption struct {
+	Category string `json:category`
+	Path     string `json:path`
 }
 
-var configs []Configuration
+type Images struct {
+	imageOptions []ImageOption
+}
 
-func Load(path string) ([]Configuration, error) {
+func NewImages(path string) (*Images, error) {
+	images := &Images{}
 	configFile, err := ioutil.ReadFile(path)
 	if err != nil {
-		gomol.Err(err.Error())
+		gomol.Fatal(err.Error())
 		return nil, err
 	}
 
-	if err := json.Unmarshal(configFile, &configs); err != nil {
-		gomol.Err(err.Error())
+	if err := json.Unmarshal(configFile, &images.imageOptions); err != nil {
+		gomol.Fatal(err.Error())
 		return nil, err
 	}
 
-	return configs, nil
+	return images, nil
+}
+
+func (i *Images) TakeFromCategory(category string) (string, error) {
+	var imgs []ImageOption
+	for _, img := range i.imageOptions {
+		if category == img.Category {
+			imgs = append(imgs, img)
+		}
+	}
+
+	return "", nil
 }
