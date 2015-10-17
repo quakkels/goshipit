@@ -11,17 +11,19 @@ type Configuration struct {
 	Path     string
 }
 
-var Configs []Configuration
+var configs []Configuration
 
-func Load() {
-	configFile, err := ioutil.ReadFile("config.json")
+func Load(path string) ([]Configuration, error) {
+	configFile, err := ioutil.ReadFile(path)
 	if err != nil {
 		gomol.Err(err.Error())
-		panic(err)
+		return nil, err
 	}
 
-	if err := json.Unmarshal(configFile, &Configs); err != nil {
+	if err := json.Unmarshal(configFile, &configs); err != nil {
 		gomol.Err(err.Error())
-		panic(err)
+		return nil, err
 	}
+
+	return configs, nil
 }

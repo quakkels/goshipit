@@ -6,14 +6,21 @@ import (
 	"github.com/quakkels/gojump/config"
 )
 
+var configs []config.Configuration
+
 func main() {
 	startUp()
 	defer cleanUp()
 
-	config.Load()
-	gomol.Infof("Configs: %v", config.Configs)
+	configs, err := config.Load("config.json")
+	if err != nil {
+		gomol.Fatal(err.Error())
+		panic(err)
+	}
 
-	path, err := getImgFromCategory("something", config.Configs)
+	gomol.Infof("Configs: %v", configs)
+
+	path, err := getImgFromCategory("something", configs)
 	if err != nil {
 		gomol.Errf(
 			"Issue getting image from category: %v",
