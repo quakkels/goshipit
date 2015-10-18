@@ -10,5 +10,9 @@
     { 
         "category" : "testcat",
         "path" : "testcatpath" 
+    },
+    {
+        "category" : "testcat",
+        "path" : "testcatpath2"
     }
 ]

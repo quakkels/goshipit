@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"github.com/aphistic/gomol"
 	"io/ioutil"
+	"math/rand"
+	"time"
 )
 
 type ImageOption struct {
@@ -39,5 +41,36 @@ func (i *Images) TakeFromCategory(category string) (string, error) {
 		}
 	}
 
-	return "", nil
+	count := len(imgs)
+
+	if count == 0 {
+		return "", nil
+	}
+
+	if count == 1 {
+		return imgs[0].Path, nil
+	}
+
+	index := getRandomInRange(0, uint(count-1))
+	return imgs[index].Path, nil
+}
+
+func (i *Images) Take() (string, error) {
+	if i.imageOptions == nil {
+		return "", nil
+	}
+
+	count := len(i.imageOptions)
+	if count < 1 {
+		return "", nil
+	}
+
+	index := getRandomInRange(0, uint(count-1))
+	return i.imageOptions[index].Path, nil
+
+}
+
+func getRandomInRange(bottom uint, top uint) int {
+	rand.Seed(time.Now().UTC().UnixNano())
+	return int(bottom) + rand.Intn(int(top)-int(bottom))
 }
