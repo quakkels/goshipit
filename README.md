@@ -1,2 +1,2 @@
-# gojump
-Auto responder to Slack slash commands. Written in Go.
+# GoShipIt
+Application to easily post "ShipIt Squirrels" to Slack via slash commands. Written in Go.
