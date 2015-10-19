@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/aphistic/gomol"
-	"github.com/quakkels/gojump/config"
+	"github.com/quakkels/goshipit/config"
 )
 
 var configs config.Images

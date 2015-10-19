@@ -1,5 +1,5 @@
 # built files to ignore
-gojump
+goshipit
 
 # vim
 .*.swp
