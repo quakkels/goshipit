@@ -11,7 +11,7 @@ func main() {
 	startUp()
 	defer cleanUp()
 
-	images, err := images.NewImages("config.json")
+	images, err := images.NewImages("images.json")
 	if err != nil {
 		gomol.Fatal(err.Error())
 		panic(err)
