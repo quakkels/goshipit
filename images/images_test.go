@@ -5,7 +5,7 @@ import (
 )
 
 func newConfigGood() (imgs *Images, err error) {
-	imgs, err = NewImages("testing/config_good.json")
+	imgs, err = NewImages("testing/images_good.json")
 	return
 }
 
