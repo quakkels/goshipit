@@ -2,7 +2,9 @@ package main
 
 import (
 	"github.com/aphistic/gomol"
+	"github.com/quakkels/goshipit/controllers"
 	"github.com/quakkels/goshipit/images"
+	"net/http"
 )
 
 func main() {
@@ -16,6 +18,9 @@ func main() {
 	}
 
 	gomol.Infof("images: %v", images)
+
+	controllers.Register()
+	http.ListenAndServe(":8080", nil)
 }
 
 func startUp() {
