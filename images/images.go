@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 type ImageOption struct {
 	Category string `json:category`
 	Path     string `json:path`
@@ -71,6 +75,5 @@ func (i *Images) Take() (string, error) {
 }
 
 func getRandomInRange(bottom uint, top uint) int {
-	rand.Seed(time.Now().UTC().UnixNano())
 	return int(bottom) + rand.Intn(int(top)-int(bottom))
 }
