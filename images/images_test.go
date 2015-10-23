@@ -142,3 +142,29 @@ func TestRandomNumber(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestGetCategoriesFromImages(t *testing.T) {
+	// arrange
+	imgs, _ := newConfigGood()
+
+	// act
+	cats := imgs.GetCategories()
+
+	// assert
+	if cats["starwars"] != 1 {
+		t.Log("Wrong value returned by .GetCategories()")
+		t.Log(cats)
+		t.Fail()
+	}
+
+	if cats["nautical"] != 1 {
+		t.Log("Wrong value returned by .GetCategories()")
+		t.Log(cats)
+		t.Fail()
+	}
+	if cats["testcat"] != 2 {
+		t.Log("Wrong value returned by .GetCategories()")
+		t.Log(cats)
+		t.Fail()
+	}
+}
