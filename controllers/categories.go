@@ -1,15 +1,12 @@
 package controllers
 
 import (
-	"github.com/quakkels/goshipit/images"
+	"encoding/json"
 	"net/http"
-	"text/template"
 )
 
-type categoriesController struct {
-	template *template.Template
-}
-
-func (this *categoriesController) list(w http.ResponseWriter, req *http.Request) {
-	images.NewImages("somethings")
+func listCategories(w http.ResponseWriter, req *http.Request) {
+	categories := imgs.GetCategories()
+	w.Header().Add("Content Type", "text/json")
+	json.NewEncoder(w).Encode(categories)
 }
