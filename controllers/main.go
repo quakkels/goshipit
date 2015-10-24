@@ -2,21 +2,10 @@ package controllers
 
 import (
 	"bufio"
-	"github.com/quakkels/goshipit/images"
 	"net/http"
 	"os"
 	"strings"
 )
-
-var imgs *images.Images
-
-func init() {
-	var err error
-	imgs, err = images.NewImages("images.json")
-	if err != nil {
-		panic(err)
-	}
-}
 
 func Register() {
 	http.HandleFunc("/categories", listCategories)

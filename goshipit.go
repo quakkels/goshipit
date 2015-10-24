@@ -3,12 +3,19 @@ package main
 import (
 	"github.com/aphistic/gomol"
 	"github.com/quakkels/goshipit/controllers"
+	"github.com/quakkels/goshipit/images"
 	"net/http"
 )
 
 func main() {
 	startUp()
 	defer cleanUp()
+
+	err := images.InitImages()
+	if err != nil {
+		gomol.Fatal("Could not load images.json.")
+		panic(err)
+	}
 
 	controllers.Register()
 	http.ListenAndServe(":8080", nil)
