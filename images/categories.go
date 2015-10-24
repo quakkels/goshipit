@@ -1,6 +1,6 @@
 package images
 
-func (i *Images) GetCategories() map[string]int {
+func (i *ImageOptions) GetCategories() map[string]int {
 	categories := make(map[string]int)
 
 	for _, item := range i.imageOptions {

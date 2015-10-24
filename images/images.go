@@ -8,36 +8,45 @@ import (
 	"time"
 )
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
+var Images *ImageOptions
 
 type ImageOption struct {
 	Category string `json:category`
 	Path     string `json:path`
 }
 
-type Images struct {
+type ImageOptions struct {
 	imageOptions []ImageOption
 }
 
-func NewImages(path string) (*Images, error) {
-	images := &Images{}
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func InitImages() error {
+	var err error
+	Images, err = newImages("images.json")
+
+	return err
+}
+
+func newImages(path string) (*ImageOptions, error) {
+	imgs := &ImageOptions{}
 	configFile, err := ioutil.ReadFile(path)
 	if err != nil {
 		gomol.Fatal(err.Error())
 		return nil, err
 	}
 
-	if err := json.Unmarshal(configFile, &images.imageOptions); err != nil {
+	if err := json.Unmarshal(configFile, &imgs.imageOptions); err != nil {
 		gomol.Fatal(err.Error())
 		return nil, err
 	}
 
-	return images, nil
+	return imgs, nil
 }
 
-func (i *Images) TakeFromCategory(category string) (string, error) {
+func (i *ImageOptions) TakeFromCategory(category string) (string, error) {
 	var imgs []ImageOption
 	for _, img := range i.imageOptions {
 		if category == img.Category {
@@ -59,7 +68,7 @@ func (i *Images) TakeFromCategory(category string) (string, error) {
 	return imgs[index].Path, nil
 }
 
-func (i *Images) Take() (string, error) {
+func (i *ImageOptions) Take() (string, error) {
 	if i.imageOptions == nil {
 		return "", nil
 	}
