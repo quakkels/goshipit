@@ -1,10 +1,5 @@
 package images
 
-type Category struct {
-	Name       string
-	ImageCount string
-}
-
 func (i *Images) GetCategories() map[string]int {
 	categories := make(map[string]int)
 
