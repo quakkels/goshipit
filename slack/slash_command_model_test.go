@@ -2,14 +2,13 @@ package slack
 
 import (
 	"net/http"
+	"strings"
 	"testing"
 )
 
 func TestNewSlashCommandModel(t *testing.T) {
 	// arrange
-	myReq := &http.Request{}
-	// todo: set Token to "testtokenvalue"
-	// todo: set post body
+	myReq, _ := http.NewRequest("POST", "Idontcare", strings.NewReader("token=testtokenvalue"))
 
 	// act
 	myModel := NewSlashCommandModel(myReq)
