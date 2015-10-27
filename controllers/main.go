@@ -8,6 +8,7 @@ import (
 )
 
 func Register() {
+	http.HandleFunc("/slash", slash)
 	http.HandleFunc("/categories", listCategories)
 	http.HandleFunc("/", serveResource)
 }
