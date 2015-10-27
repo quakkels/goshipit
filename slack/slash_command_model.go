@@ -20,7 +20,7 @@ func NewSlashCommandModel(req *http.Request) *SlashCommandModel {
 	myModel := &SlashCommandModel{}
 
 	myModel.Token = req.FormValue("token")
-	myModel.TeamId = req.FormValue("token_id")
+	myModel.TeamId = req.FormValue("team_id")
 	myModel.TeamDomain = req.FormValue("team_domain")
 	myModel.ChannelId = req.FormValue("channel_id")
 	myModel.ChannelName = req.FormValue("channel_name")
