@@ -3,8 +3,10 @@ package controllers
 import (
 	"bytes"
 	"github.com/aphistic/gomol"
+	"github.com/quakkels/goshipit/images"
 	"github.com/quakkels/goshipit/slack"
 	"net/http"
+	"strconv"
 )
 
 func slash(w http.ResponseWriter, req *http.Request) {
@@ -13,8 +15,21 @@ func slash(w http.ResponseWriter, req *http.Request) {
 		gomol.Infof("slash command received: %f", slashCommand)
 
 		w.Header().Add("Content Type", "text/plain")
-		b := bytes.NewBufferString("Slash command received.")
 
-		b.WriteTo(w)
+		if slashCommand.Text == "categories" {
+			cats := images.Images.GetCategories()
+			var catBuffer bytes.Buffer
+			for key, count := range cats {
+				catBuffer.WriteString(key +
+					" has " +
+					strconv.Itoa(count) +
+					" shipit squirrels.\n")
+			}
+
+			catBuffer.WriteTo(w)
+		} else {
+			b := bytes.NewBufferString("Command not recognized.")
+			b.WriteTo(w)
+		}
 	}
 }
