@@ -1,6 +1,9 @@
 # built files to ignore
 goshipit
 
+# config files to ignore
+slack.json
+
 # vim
 .*.swp
 
