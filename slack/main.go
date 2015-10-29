@@ -2,7 +2,6 @@ package slack
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/aphistic/gomol"
 	"io/ioutil"
 )
@@ -10,7 +9,7 @@ import (
 var Config *SlackConfig
 
 type SlackConfig struct {
-	WebhookUrl string `json:webhookUrl`
+	WebhookUrl string `json:"webhook_url"`
 }
 
 func InitSlackConfig() error {
