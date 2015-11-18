@@ -38,6 +38,7 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			incomingWebhook.Channel = slashCommand.ChannelName
 			incomingWebhook.Text = slack.GetImageMarkup(image)
 
+			slack.SendIncomingWebhook(incomingWebhook)
 		} else {
 			b := bytes.NewBufferString("Command not recognized.")
 			b.WriteTo(w)
