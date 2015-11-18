@@ -37,6 +37,7 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			incomingWebhook.Username = slashCommand.UserName
 			incomingWebhook.Channel = slashCommand.ChannelName
 			incomingWebhook.Text = slack.GetImageMarkup(image)
+			gomol.Info("image: " + image)
 
 			slack.SendIncomingWebhook(incomingWebhook)
 		} else {
