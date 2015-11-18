@@ -2,9 +2,11 @@ package main
 
 import (
 	"github.com/aphistic/gomol"
+	"github.com/quakkels/goshipit/context"
 	"github.com/quakkels/goshipit/controllers"
 	"github.com/quakkels/goshipit/images"
 	"net/http"
+	//"os"
 )
 
 func main() {
@@ -18,7 +20,7 @@ func main() {
 	}
 
 	controllers.Register()
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+context.Port, nil)
 }
 
 func startUp() {

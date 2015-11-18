@@ -3,6 +3,7 @@ package controllers
 import (
 	"bytes"
 	"github.com/aphistic/gomol"
+	"github.com/quakkels/goshipit/context"
 	"github.com/quakkels/goshipit/images"
 	"github.com/quakkels/goshipit/slack"
 	"net/http"
@@ -36,7 +37,8 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			incomingWebhook := slack.IncomingWebhook{}
 			incomingWebhook.Username = slashCommand.UserName
 			incomingWebhook.Channel = slashCommand.ChannelName
-			incomingWebhook.Text = slack.GetImageMarkup(image)
+			incomingWebhook.Text = slack.GetImageMarkup(context.GetSiteRootPath() + image)
+
 			gomol.Info("image: " + image)
 
 			slack.SendIncomingWebhook(incomingWebhook)
