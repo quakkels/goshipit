@@ -27,6 +27,17 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			}
 
 			catBuffer.WriteTo(w)
+		} else if slashCommand.Text == "" {
+			image, err := images.Images.Take()
+			if err != nil {
+				gomol.Err("Failed to .Take() image. " + err.Error())
+			}
+
+			incomingWebhook := slack.IncomingWebhook{}
+			incomingWebhook.Username = slashCommand.UserName
+			incomingWebhook.Channel = slashCommand.ChannelName
+			incomingWebhook.Text = slack.GetImageMarkup(image)
+
 		} else {
 			b := bytes.NewBufferString("Command not recognized.")
 			b.WriteTo(w)
