@@ -1,12 +1,12 @@
 package context
 
-var Port string = "8080"
 var Domain string = "localhost"
+var Port string = "8080"
 var IsSecure bool = false
 
-func SetContext(port string, domain string, isSecure bool) {
-	Port = port
+func SetContext(domain string, port string, isSecure bool) {
 	Domain = domain
+	Port = port
 	IsSecure = isSecure
 }
 

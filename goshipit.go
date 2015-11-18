@@ -6,12 +6,24 @@ import (
 	"github.com/quakkels/goshipit/controllers"
 	"github.com/quakkels/goshipit/images"
 	"net/http"
-	//"os"
+	"os"
+	"strconv"
 )
 
 func main() {
 	startUp()
 	defer cleanUp()
+
+	// get context from args
+	args := os.Args[1:]
+	if len(args) == 3 {
+		isSecure, err := strconv.ParseBool(args[2])
+		if err != nil {
+			panic("isSecure cli argument is not boolean.")
+		}
+
+		context.SetContext(args[0], args[1], isSecure)
+	}
 
 	err := images.InitImages()
 	if err != nil {
