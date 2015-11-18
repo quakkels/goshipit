@@ -39,7 +39,7 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			incomingWebhook.Channel = slashCommand.ChannelName
 			incomingWebhook.Text = slack.GetImageMarkup(context.GetSiteRootPath() + image)
 
-			gomol.Info("image: " + image)
+			gomol.Info("Text: " + incomingWebhook.Text)
 
 			slack.SendIncomingWebhook(incomingWebhook)
 		} else {
