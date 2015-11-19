@@ -44,7 +44,10 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			b := bytes.NewBufferString("Request received.")
 			b.WriteTo(w)
 
-			slack.SendIncomingWebhook(incomingWebhook)
+			_, err = slack.SendIncomingWebhook(incomingWebhook)
+			if err != nil {
+				gomol.Err(err.Error())
+			}
 		} else {
 			b := bytes.NewBufferString("Command not recognized.")
 			b.WriteTo(w)
