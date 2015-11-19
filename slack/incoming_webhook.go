@@ -9,9 +9,9 @@ import (
 )
 
 type IncomingWebhook struct {
-	Username string `json:username`
-	Text     string `json:text`
-	Channel  string `json:channel`
+	Username string `json:"username"`
+	Text     string `json:"text"`
+	Channel  string `json:"channel"`
 }
 
 func GetLinkMarkup(path string, text string) string {
@@ -34,7 +34,7 @@ func SendIncomingWebhook(model IncomingWebhook) ([]byte, error) {
 
 	// send post
 	req, err := http.NewRequest("POST", Config.WebhookUrl, payload)
-	req.Header.Add("Content=Type", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
