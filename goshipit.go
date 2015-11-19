@@ -5,6 +5,7 @@ import (
 	"github.com/quakkels/goshipit/context"
 	"github.com/quakkels/goshipit/controllers"
 	"github.com/quakkels/goshipit/images"
+	"github.com/quakkels/goshipit/slack"
 	"net/http"
 	"os"
 	"strconv"
@@ -28,6 +29,12 @@ func main() {
 	err := images.InitImages()
 	if err != nil {
 		gomol.Fatal("Could not load images.json.")
+		panic(err)
+	}
+
+	err = slack.InitSlackConfig()
+	if err != nil {
+		gomol.Fatal("Could not load slack.json.")
 		panic(err)
 	}
 
