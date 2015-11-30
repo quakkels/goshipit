@@ -3,6 +3,7 @@ package controllers
 import (
 	"bytes"
 	"github.com/aphistic/gomol"
+	"github.com/quakkels/goshipit/context"
 	"github.com/quakkels/goshipit/images"
 	"github.com/quakkels/goshipit/slack"
 	"net/http"
@@ -27,6 +28,26 @@ func slash(w http.ResponseWriter, req *http.Request) {
 			}
 
 			catBuffer.WriteTo(w)
+		} else if slashCommand.Text == "" {
+			image, err := images.Images.Take()
+			if err != nil {
+				gomol.Err("Failed to .Take() image. " + err.Error())
+			}
+
+			incomingWebhook := slack.IncomingWebhook{}
+			incomingWebhook.Username = slashCommand.UserName
+			incomingWebhook.Channel = slashCommand.ChannelName
+			incomingWebhook.Text = slack.GetImageMarkup(context.GetSiteRootPath() + image)
+
+			gomol.Info("Text: " + incomingWebhook.Text)
+
+			b := bytes.NewBufferString("Request received.")
+			b.WriteTo(w)
+
+			_, err = slack.SendIncomingWebhook(incomingWebhook)
+			if err != nil {
+				gomol.Err(err.Error())
+			}
 		} else {
 			b := bytes.NewBufferString("Command not recognized.")
 			b.WriteTo(w)
