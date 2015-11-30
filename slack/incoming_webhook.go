@@ -22,25 +22,24 @@ func GetImageMarkup(imageUrl string) string {
 	return "<" + imageUrl + ">"
 }
 
-func SendIncomingWebhook(model IncomingWebhook) ([]byte, error) {
+func SendIncomingWebhook(model IncomingWebhook) (int, error) {
 
 	payload, err := makePostPayload(model)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
-
 	req, err := makeRequest(Config.WebhookUrl, payload)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 
-	_, err = sendRequest(req)
+	code, err := sendRequest(req)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 
 	gomol.Info("Sent an IncomingWebhook")
-	return []byte{}, nil
+	return code, nil
 }
 
 func makePostPayload(model IncomingWebhook) (*bytes.Buffer, error) {

@@ -106,8 +106,6 @@ func TestSendRequest(t *testing.T) {
 		bytes.NewBuffer([]byte("{\"one\":\"1\"}")))
 	req.Header.Add("Content-Type", "application/json")
 
-	//go http.ListenAndServe(":8123", nil)
-
 	// act
 	result, err := sendRequest(req)
 
@@ -126,9 +124,33 @@ func TestSendRequest(t *testing.T) {
 
 func TestSendIncomingWebhook(t *testing.T) {
 	// arrange
+	ms := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
 
+		}))
+	defer ms.Close()
+	Config = &SlackConfig{ms.URL}
+	t.Log(ms.URL)
+	t.Log(Config.WebhookUrl)
+
+	model := IncomingWebhook{}
+	model.Channel = "Channel"
+	model.Text = "Text"
+	model.Username = "Username"
+
+	t.Logf("%v", model)
 	// act
+	result, err := SendIncomingWebhook(model)
 
 	// assert
+	if err != nil {
+		t.Log("could not send an incoming webhook")
+		t.Log(err.Error())
+		t.Fail()
+	}
 
+	if result != 200 {
+		t.Log("response was not a 200 code")
+		t.Fail()
+	}
 }
