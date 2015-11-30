@@ -36,10 +36,10 @@ func slash(w http.ResponseWriter, req *http.Request) {
 
 			incomingWebhook := slack.IncomingWebhook{}
 			incomingWebhook.Username = slashCommand.UserName
-			incomingWebhook.Channel = slashCommand.ChannelName
+			incomingWebhook.Channel = "#" + slashCommand.ChannelName
 			incomingWebhook.Text = slack.GetImageMarkup(context.GetSiteRootPath() + image)
 
-			gomol.Info("Text: " + incomingWebhook.Text)
+			gomol.Infof("THIS IS IMPORTANT: %v", incomingWebhook)
 
 			b := bytes.NewBufferString("Request received.")
 			b.WriteTo(w)
