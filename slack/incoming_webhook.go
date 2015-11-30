@@ -23,6 +23,27 @@ func GetImageMarkup(imageUrl string) string {
 }
 
 func SendIncomingWebhook(model IncomingWebhook) ([]byte, error) {
+
+	payload, err := makePostPayload(model)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := makeRequest(Config.WebhookUrl, payload)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = sendRequest(req)
+	if err != nil {
+		return nil, err
+	}
+
+	gomol.Info("Sent an IncomingWebhook")
+	return []byte{}, nil
+}
+
+func makePostPayload(model IncomingWebhook) (*bytes.Buffer, error) {
 	modelJson, err := json.Marshal(model)
 	if err != nil {
 		gomol.Err("Could not marshal json from IncomingWebhook model. " +
@@ -31,26 +52,33 @@ func SendIncomingWebhook(model IncomingWebhook) ([]byte, error) {
 	}
 
 	payload := bytes.NewBuffer(modelJson)
+	return payload, nil
+}
 
-	// send post
-	req, err := http.NewRequest("POST", Config.WebhookUrl, payload)
+func makeRequest(url string, payload *bytes.Buffer) (*http.Request, error) {
+	req, err := http.NewRequest("POST", url, payload)
+	if err != nil {
+		gomol.Err("Could not create create post request. " + err.Error())
+		return nil, err
+	}
+
 	req.Header.Add("Content-Type", "application/json")
+	return req, nil
+}
 
+func sendRequest(req *http.Request) (int, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		gomol.Err("Could not send IncomingWebhook. " + err.Error())
-		return nil, err
+		return 0, err
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body) // must read to close?
 
+	_, err = ioutil.ReadAll(resp.Body) // must read to close?
 	if err != nil {
-		gomol.Err("Could not .ReadAll() of response body when sending IncomingWebhook. " +
-			err.Error())
-		return nil, err
+		return 0, err
 	}
 
-	gomol.Info("Sent an IncomingWebhook")
-	return body, nil
+	return resp.StatusCode, nil
 }
