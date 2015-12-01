@@ -30,7 +30,7 @@ func GetImageMarkup(imageUrl string) string {
 	return "<" + imageUrl + ">"
 }
 
-func SendIncomingWebhook(model IncomingWebhook) (int, error) {
+func SendIncomingWebhook(model *IncomingWebhook) (int, error) {
 
 	payload, err := makePostPayload(model)
 	if err != nil {
@@ -50,7 +50,7 @@ func SendIncomingWebhook(model IncomingWebhook) (int, error) {
 	return code, nil
 }
 
-func makePostPayload(model IncomingWebhook) (*bytes.Buffer, error) {
+func makePostPayload(model *IncomingWebhook) (*bytes.Buffer, error) {
 	modelJson, err := json.Marshal(model)
 	if err != nil {
 		gomol.Err("Could not marshal json from IncomingWebhook model. " +
