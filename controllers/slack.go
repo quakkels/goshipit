@@ -34,14 +34,11 @@ func slash(w http.ResponseWriter, req *http.Request) {
 				gomol.Err("Failed to .Take() image. " + err.Error())
 			}
 
-			incomingWebhook := slack.IncomingWebhook{}
-			incomingWebhook.Username = slashCommand.UserName
-			incomingWebhook.Channel = "#" + slashCommand.ChannelName
-			incomingWebhook.Text = slack.GetImageMarkup(context.GetSiteRootPath() + image)
+			incomingWebhook := slack.NewIncomingWebhook(
+				slashCommand.ChannelName,
+				slack.GetImageMarkup(context.GetSiteRootPath()+image))
 
-			gomol.Infof("THIS IS IMPORTANT: %v", incomingWebhook)
-
-			b := bytes.NewBufferString("Request received.")
+			gomol.Infof("Sending Incoming Webhook: %v", incomingWebhook)
 			b.WriteTo(w)
 
 			_, err = slack.SendIncomingWebhook(incomingWebhook)
