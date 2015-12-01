@@ -37,7 +37,7 @@ func TestMakePostPayload(t *testing.T) {
 		[]byte("{\"username\":\"username\",\"text\":\"text\",\"channel\":\"channel\"}"))
 
 	// act
-	result, err := makePostPayload(model)
+	result, err := makePostPayload(&model)
 
 	// assert
 	if err != nil {
@@ -140,7 +140,7 @@ func TestSendIncomingWebhook(t *testing.T) {
 
 	t.Logf("%v", model)
 	// act
-	result, err := SendIncomingWebhook(model)
+	result, err := SendIncomingWebhook(&model)
 
 	// assert
 	if err != nil {

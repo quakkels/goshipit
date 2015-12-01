@@ -39,7 +39,6 @@ func slash(w http.ResponseWriter, req *http.Request) {
 				slack.GetImageMarkup(context.GetSiteRootPath()+image))
 
 			gomol.Infof("Sending Incoming Webhook: %v", incomingWebhook)
-			b.WriteTo(w)
 
 			_, err = slack.SendIncomingWebhook(incomingWebhook)
 			if err != nil {
