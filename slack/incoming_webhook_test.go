@@ -129,7 +129,7 @@ func TestSendIncomingWebhook(t *testing.T) {
 
 		}))
 	defer ms.Close()
-	Config = &SlackConfig{ms.URL}
+	Config = &SlackConfig{"botname", ms.URL}
 	t.Log(ms.URL)
 	t.Log(Config.WebhookUrl)
 
@@ -151,6 +151,54 @@ func TestSendIncomingWebhook(t *testing.T) {
 
 	if result != 200 {
 		t.Log("response was not a 200 code")
+		t.Fail()
+	}
+}
+
+func TestNewIncomingWebhookWithoutChannelHash(t *testing.T) {
+	// arrange
+	Config = &SlackConfig{"botname", "http://example.com"}
+
+	// act
+	result := NewIncomingWebhook("thischannel", "thistext")
+
+	// assert
+	if result == nil {
+		t.Log("result was nil")
+		t.Fail()
+	}
+
+	if result.Channel != "#thischannel" {
+		t.Log("channel was wrong")
+		t.Fail()
+	}
+
+	if result.Text != "thistext" {
+		t.Log("text was wrong")
+		t.Fail()
+	}
+
+	if result.Username != "botname" {
+		t.Log("botusername was wrong")
+		t.Fail()
+	}
+}
+
+func TestNewIncomingWebhookWithChannelHash(t *testing.T) {
+	// arrange
+	Config = &SlackConfig{"botname", "http://example.com"}
+
+	// act
+	result := NewIncomingWebhook("#thischannel", "thistext")
+
+	// assert
+	if result == nil {
+		t.Log("result was nil")
+		t.Fail()
+	}
+
+	if result.Channel != "#thischannel" {
+		t.Log("channel was wrong")
 		t.Fail()
 	}
 }

@@ -9,7 +9,8 @@ import (
 var Config *SlackConfig
 
 type SlackConfig struct {
-	WebhookUrl string `json:"webhook_url"`
+	BotUsername string `json:"bot_username"`
+	WebhookUrl  string `json:"webhook_url"`
 }
 
 func InitSlackConfig() error {
