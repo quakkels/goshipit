@@ -35,3 +35,11 @@ Take the value of the Webhook URL field and place that url in the `webhook_url` 
 Use this command to run GoShipIt:
 
 `$ ./goshipit {yourdomain.com} {yourport} {use https true/false}`
+
+# Usage
+
+* `/goshipit` will randomly select any ShipIt squirrel and display it in Slack.
+
+* `/goshipit categories` will show what the available categories are and how many ShipIt squirrel images are in them.
+
+* `/goshipit {categoryname}` will randomly select a ShipIt squirrel image from the specified category.

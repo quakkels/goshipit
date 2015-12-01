@@ -38,15 +38,26 @@ func slash(w http.ResponseWriter, req *http.Request) {
 				slashCommand.ChannelName,
 				slack.GetImageMarkup(context.GetSiteRootPath()+image))
 
-			gomol.Infof("Sending Incoming Webhook: %v", incomingWebhook)
-
 			_, err = slack.SendIncomingWebhook(incomingWebhook)
 			if err != nil {
 				gomol.Err(err.Error())
 			}
 		} else {
-			b := bytes.NewBufferString("Command not recognized.")
-			b.WriteTo(w)
+			image, err := images.Images.TakeFromCategory(slashCommand.Text)
+			if err != nil {
+				b := bytes.NewBufferString("Command not recognized.")
+				b.WriteTo(w)
+			} else {
+				incomingWebhook := slack.NewIncomingWebhook(
+					slashCommand.ChannelName,
+					slack.GetImageMarkup(context.GetSiteRootPath()+image))
+
+				_, err = slack.SendIncomingWebhook(incomingWebhook)
+				if err != nil {
+					gomol.Err(err.Error())
+				}
+
+			}
 		}
 	}
 }
