@@ -32,4 +32,10 @@ func TestNewSlackConfig(t *testing.T) {
 		t.Log("WebhookUrl was not the expected value: " + conf.WebhookUrl)
 		t.Fail()
 	}
+
+	if conf.BotUsername != "GoShipit" {
+		t.Log("BotUsername exptected to be <GoShipit>. Actual <" +
+			conf.BotUsername + ">.")
+		t.Fail()
+	}
 }

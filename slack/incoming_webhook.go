@@ -6,12 +6,20 @@ import (
 	"github.com/aphistic/gomol"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 type IncomingWebhook struct {
 	Username string `json:"username"`
 	Text     string `json:"text"`
 	Channel  string `json:"channel"`
+}
+
+func NewIncomingWebhook(channel string, text string) *IncomingWebhook {
+	if !strings.HasPrefix(channel, "#") {
+		channel = "#" + channel
+	}
+	return &IncomingWebhook{Config.BotUsername, text, channel}
 }
 
 func GetLinkMarkup(path string, text string) string {
